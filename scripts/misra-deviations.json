@@ -12,6 +12,26 @@
       "expected": 1
     },
     {
+      "id": "D-11.4-002",
+      "rule": "11.4",
+      "path": "src/wolfcose_util.c",
+      "symbol": "wolfCose_ForceZero",
+      "anchors": [
+        "        while ((i < len) && ((((uintptr_t)&p[i]) % sizeof(size_t)) != 0u)) {"
+      ],
+      "expected": 1
+    },
+    {
+      "id": "D-11.3-001",
+      "rule": "11.3",
+      "path": "src/wolfcose_util.c",
+      "symbol": "wolfCose_ForceZero",
+      "anchors": [
+        "            *(volatile size_t*)&p[i] = 0u;"
+      ],
+      "expected": 1
+    },
+    {
       "id": "D-11.4-001",
       "rule": "11.4",
       "path": "src/wolfcose_eat_psa.c",

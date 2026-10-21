@@ -66,9 +66,20 @@ WOLFCOSE_LOCAL void wolfCose_ForceZero(void* mem, size_t len)
 {
     if ((mem != NULL) && (len > 0u)) {
         volatile unsigned char* p = (volatile unsigned char*)mem;
-        size_t i;
-        for (i = 0u; i < len; i++) {
+        size_t i = 0u;
+        /* Bytes up to a size_t boundary, then whole words, then the tail.
+         * Word stores make multi-KB scratch wipes about 8x faster. */
+        while ((i < len) && ((((uintptr_t)&p[i]) % sizeof(size_t)) != 0u)) {
             p[i] = 0u;
+            i++;
+        }
+        while ((len - i) >= sizeof(size_t)) {
+            *(volatile size_t*)&p[i] = 0u;
+            i += sizeof(size_t);
+        }
+        while (i < len) {
+            p[i] = 0u;
+            i++;
         }
     }
 #ifdef WOLFCOSE_TEST_ZEROIZE_HOOK
