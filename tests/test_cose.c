@@ -563,8 +563,8 @@ static void test_wolfcose_force_zero(void)
     TEST_ASSERT(prefixZero == 1, "ForceZero prefix zeroed");
     TEST_ASSERT(suffixUntouched == 1, "ForceZero suffix untouched");
 
-    /* Every start offset and length across the byte head, word body and
-     * byte tail: exactly [off, off + len) is zeroed, nothing outside it */
+    /* Every start offset and length: exactly [off, off + len) is zeroed,
+     * nothing outside it */
     exactRange = 1;
     for (off = 0; off < (2u * sizeof(size_t)); off++) {
         for (len = 0; len <= (3u * sizeof(size_t)) + 1u; len++) {
